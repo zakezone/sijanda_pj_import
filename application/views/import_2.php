@@ -81,9 +81,25 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 		<div id="body">
 			<span><a href="<?= base_url(); ?>"><em>back</em></a></span>
-
-			<p>Extensi file: .xlsx .xls</p>
 			<form method="POST" action="<?= base_url('import/importperiode2'); ?>" enctype="multipart/form-data">
+				<div style="margin-top: 10px;">
+					Bulan <select id="bulan" name="bulan">
+						<option value="january">Januari</option>
+						<option value="february">Februari</option>
+						<option value="march">Maret</option>
+						<option value="april">April</option>
+						<option value="may">Mei</option>
+						<option value="june">Juni</option>
+						<option value="july">Juli</option>
+						<option value="august">Agustus</option>
+						<option value="september">September</option>
+						<option value="october">Oktober</option>
+						<option value="november">November</option>
+						<option value="december">Desember</option>
+					</select>
+				</div>
+
+				<p>Extensi file: .xlsx .xls</p>
 				<code><input type="file" name="importexcel" accept=".xlsx,.xls"></code>
 				<button name="importnow" type="submit" onclick="return confirm('Konfirmasi data akan di import?');">Import Data</button>
 				<br><br>
@@ -91,6 +107,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 				<br><br>
 
 				<?php if ($tab != null) : ?>
+					ini adalah view data bulan (<?= strtolower(date('F')); ?> tahun <?= date('Y') ?>)
 					<code>
 						<p style="text-align: center;">REKAPITULASI KINERJA DINAS DUKCAPIL PROVINSI & KAB/KOTA</p>
 						<p style="text-align: center;">PERIODE 2 BULAN <?= strtoupper(date('F')); ?> TAHUN <?= date('Y') ?> </p>

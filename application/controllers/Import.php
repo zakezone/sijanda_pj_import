@@ -29,22 +29,33 @@ class Import extends CI_Controller
 
 			$spreadsheet = $render->load($_FILES['importexcel']['tmp_name']);
 			$data = $spreadsheet->getActiveSheet()->toArray();
-			// echo '<pre>';
-			// print_r($data);
+			$total = 0;
 			foreach ($data as $x => $row) {
+				$totaldata = $total + $x;
 				if ($x == 0) {
 					continue;
 				}
 				$dataimport = [
-					'periode' => $row[0],
-					'bulan' => $row[1],
-					'tahun' => $row[2],
-					'kd_kab' => $row[3],
-					'kab_kota' => $row[4],
-					'wajib_ktp_el' => $row[5]
+					'kd_kab' => $row[0],
+					'kab_kota' => $row[1],
+					'wajib_ktp_el' => $row[2],
+					'created' => time()
 				];
 				$this->load->model('Import_model');
 				$this->Import_model->import_periode1($dataimport);
+			}
+			$periode = 1;
+			$bulan = $this->input->post('bulan', true);
+			$tahun = date("Y");
+			$jumlah = $totaldata;
+			for ($x = 1; $x <= $jumlah; $x++) {
+				$datainsert = [
+					'periode' => $periode,
+					'bulan' => $bulan,
+					'tahun' => $tahun
+				];
+				$this->load->model('Import_model');
+				$this->Import_model->import_periode1atr($datainsert, time());
 			}
 			$this->session->set_flashdata('message', 'Data <b>berhasil</b> diimport ke database');
 			redirect('import/import1');
@@ -72,22 +83,33 @@ class Import extends CI_Controller
 
 			$spreadsheet = $render->load($_FILES['importexcel']['tmp_name']);
 			$data = $spreadsheet->getActiveSheet()->toArray();
-			// echo '<pre>';
-			// print_r($data);
+			$total = 0;
 			foreach ($data as $x => $row) {
+				$totaldata = $total + $x;
 				if ($x == 0) {
 					continue;
 				}
 				$dataimport = [
-					'periode' => $row[0],
-					'bulan' => $row[1],
-					'tahun' => $row[2],
-					'kd_kab' => $row[3],
-					'kab_kota' => $row[4],
-					'wajib_ktp_el' => $row[5]
+					'kd_kab' => $row[0],
+					'kab_kota' => $row[1],
+					'wajib_ktp_el' => $row[2],
+					'created' => time()
 				];
 				$this->load->model('Import_model');
 				$this->Import_model->import_periode2($dataimport);
+			}
+			$periode = 2;
+			$bulan = $this->input->post('bulan', true);
+			$tahun = date("Y");
+			$jumlah = $totaldata;
+			for ($x = 1; $x <= $jumlah; $x++) {
+				$datainsert = [
+					'periode' => $periode,
+					'bulan' => $bulan,
+					'tahun' => $tahun
+				];
+				$this->load->model('Import_model');
+				$this->Import_model->import_periode2atr($datainsert, time());
 			}
 			$this->session->set_flashdata('message', 'Data <b>berhasil</b> diimport ke database');
 			redirect('import/import2');

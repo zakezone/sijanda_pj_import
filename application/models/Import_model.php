@@ -24,6 +24,12 @@ class Import_model extends CI_Model
         }
     }
 
+    public function import_periode1atr($datainsert, $time)
+    {
+        $this->db->where('created', $time);
+        $this->db->update('rekap_pj_jateng', $datainsert);
+    }
+
     public function getdata_periode2_2022()
     {
         $this->db->select('*');
@@ -43,5 +49,11 @@ class Import_model extends CI_Model
         } else {
             $this->db->insert('rekap_pj_jateng', $dataimport);
         }
+    }
+
+    public function import_periode2atr($datainsert, $time)
+    {
+        $this->db->where('created', $time);
+        $this->db->update('rekap_pj_jateng', $datainsert);
     }
 }
